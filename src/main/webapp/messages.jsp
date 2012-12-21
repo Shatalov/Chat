@@ -8,11 +8,15 @@
 
 <h1>Messages page</h1>
 
+<TEXTAREA id="messageTextArea" ROWS=5 COLS=72></TEXTAREA>
+
 <input type="text" id="messageId"/>
 <button id="testMessageBtn">Find message</button>
 
 <input type="text" id="messageText"/>
 <button id="postMessageBtn">Post</button>
+
+
 
 </body>
 </html>

@@ -21,7 +21,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>messages.jsp</welcome-file>
+        <welcome-file>enterChat.jsp</welcome-file>
     </welcome-file-list>
 
 </web-app>

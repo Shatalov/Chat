@@ -3,7 +3,7 @@ package com.teamdev.students.chat.model;
 import java.util.Date;
 
 public class Message {
-    private final Long messageId;
+    private final long messageId;
     private final String text;
     private final Date postedAt;
     private final long userId;
