@@ -1,7 +1,7 @@
 <html>
 <head>
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="./js/messages.js"></script>
+    <%--<script src="./js/messages.js"></script>--%>
 </head>
 
 <body>
@@ -9,6 +9,7 @@
 <h1>Messages page</h1>
 
 <TEXTAREA id="messageTextArea" ROWS=5 COLS=72></TEXTAREA>
+<br>
 
 <input type="text" id="messageId"/>
 <button id="testMessageBtn">Find message</button>

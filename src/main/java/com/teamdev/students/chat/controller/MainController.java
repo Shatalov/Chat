@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import java.util.Date;
@@ -55,17 +56,17 @@ public class MainController {
         return new MessageResponse(message.getText(), message.getUserId());
     }
 
-    @RequestMapping(value = "/userNickName/", method = RequestMethod.GET)
+    @RequestMapping(value = "/userNickName/", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String enterUser(@RequestParam("nickName") String nickname, Model model){
+    public String enterUser(@RequestParam("nickName") String nickname){  //, Model model){
 
-        model.addAttribute("userId", 111);
+//        model.addAttribute("userId", 111);
 
         LOGGER.debug("Get nickname: " + nickname);
 
         System.out.println("***************Get nickname: " + nickname);
 
-        return "messages";
+        return "WEB-INF/jsp/messages.jsp";
 
     }
 }
