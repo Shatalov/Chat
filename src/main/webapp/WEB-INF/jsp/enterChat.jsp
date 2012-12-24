@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 
 </head>
 <%@ page import="com.teamdev.students.chat.model.User" %>
-<%@ page import="java.util.List" %>
 
 <body>
 <div align = 'center'>
@@ -29,26 +29,13 @@
             <br>
 
 
-        <form:form commandName="colors">
-            <%--<form:select path="color" items="${colors}"/>--%>
-             <%--<br>--%>
+            <select name="colorCombo">
+                <c:forEach items="${colors}" var="color">
+                    <option value="${color}">${color}</option>
+                </c:forEach>
+            </select>
 
-            <form:select  path="Color">
-                <form:options items="${colors}" itemValue="color" itemLabel="color"/>
-            </form:select>
 
-            <%--<form:select path="colors">--%>
-                <%--<form:option value="-" label="--Please Select"/>--%>
-                <%--<form:options items="${colors}" itemValue="code" itemLabel="name"/>--%>
-            <%--</form:select>--%>
-
-        </form:form>
-
-            <%--<SELECT NAME="sex">--%>
-                <%--<OPTION VALUE=a>Male--%>
-                <%--<OPTION VALUE=b>Female--%>
-                <%--<OPTION VALUE=c>Do not know--%>
-            <%--</SELECT>--%>
 
         <br>
         <INPUT TYPE=submit value="Ok">

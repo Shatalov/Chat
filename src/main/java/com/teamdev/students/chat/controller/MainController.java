@@ -3,7 +3,6 @@ package com.teamdev.students.chat.controller;
 import com.teamdev.students.chat.ChatContext;
 import com.teamdev.students.chat.controller.dto.MessagePostRequest;
 import com.teamdev.students.chat.controller.dto.MessageResponse;
-import com.teamdev.students.chat.model.Color;
 import com.teamdev.students.chat.model.Message;
 import com.teamdev.students.chat.model.User;
 import com.teamdev.students.chat.service.EnterUserService;
@@ -14,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import javax.inject.Inject;
 import java.util.Date;
@@ -81,10 +80,10 @@ public class MainController {
     public String enterUser( Model model){
 
         User user =  new User(0, "");
-        List<Color> col= new LinkedList<Color>();
-        col.add(new Color("Black"));
-        col.add(new Color("Green"));
-        col.add(new Color("Brown"));
+        List<String> col= new LinkedList<String>();
+        col.add("Black");
+        col.add("Green");
+        col.add("Brown");
 
         chatContext.setColorsAvailable(col);
 

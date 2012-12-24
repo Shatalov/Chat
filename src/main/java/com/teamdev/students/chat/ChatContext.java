@@ -1,7 +1,6 @@
 package com.teamdev.students.chat;
 
 
-import com.teamdev.students.chat.model.Color;
 import com.teamdev.students.chat.model.Message;
 import com.teamdev.students.chat.model.User;
 import org.springframework.stereotype.Repository;
@@ -16,7 +15,7 @@ public class ChatContext {
     private long numberOfMessages;
     private List<User> users= new LinkedList<User>();
     private List<Message> messages= new LinkedList<Message>();
-    private List<Color> colorsAvailable= new LinkedList<Color>();
+    private List<String> colorsAvailable= new LinkedList<String>();
 //    private Map<Long,User >= new LinkedHashMap<Long,User>();
 
     public void addUser(User user){
@@ -44,11 +43,11 @@ public class ChatContext {
         return null;
     }
 
-    public List<Color> getColorsAvailable() {
+    public List<String> getColorsAvailable() {
         return colorsAvailable;
     }
 
-    public void setColorsAvailable(List<Color> colorsAvailable) {
+    public void setColorsAvailable(List<String> colorsAvailable) {
         this.colorsAvailable = colorsAvailable;
     }
 }

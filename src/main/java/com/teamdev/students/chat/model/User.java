@@ -5,7 +5,7 @@ public class User {
     private long userId;
     private String nickName;
     private long numberOfShownMessages;
-    private Color  userColor;
+    private String  userColor;
 
     public User(long userId, String nickName) {
         this.userId = userId;
@@ -32,11 +32,11 @@ public class User {
         return numberOfShownMessages;
     }
 
-    public Color getUserColor() {
+    public String getUserColor() {
         return userColor;
     }
 
-    public void setUserColor(Color userColor) {
+    public void setUserColor(String userColor) {
         this.userColor = userColor;
     }
 

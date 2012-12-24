@@ -3,7 +3,10 @@
 <html>
 <head>
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="../js/messages.js"></script>
+    <%--<script src="${pageContext.request.servletPath}../../../js/messages.js"></script>--%>
+    <%--<script src="../js/messages.js"></script>--%>
+    <script src="/js/messages.js"></script>
+
 </head>
 
 <body>
@@ -13,7 +16,7 @@
 fhfhfhf
 <script language="javascript">
     var UserID = "<%= request.getAttribute("userIDDDD") %>";
-     alert(UserID);
+//     alert(UserID);
     var Us = "Fafa";
 </script>
 
