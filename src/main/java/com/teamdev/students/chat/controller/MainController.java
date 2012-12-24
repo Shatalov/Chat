@@ -56,7 +56,8 @@ public class MainController {
         return new MessageResponse(message.getText(), message.getUserId());
     }
 
-    @RequestMapping(value = "/userNickName/", method = RequestMethod.POST)
+//    @RequestMapping(value = "/userNickName", method = RequestMethod.GET)
+    @RequestMapping(value = "/user.form", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String enterUser(@RequestParam("nickName") String nickname){  //, Model model){
 
@@ -67,6 +68,12 @@ public class MainController {
         System.out.println("***************Get nickname: " + nickname);
 
         return "WEB-INF/jsp/messages.jsp";
+//         return "messages";
+    }
 
+    @RequestMapping(value = "/test.form",method = RequestMethod.GET)
+    public String test(@RequestParam("name") String param,Model model){
+        model.addAttribute("name111",param);
+        return "messages";
     }
 }

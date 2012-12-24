@@ -1,7 +1,7 @@
 <html>
 <head>
     <script src="http://code.jquery.com/jquery.js"></script>
-    <%--<script src="./js/messages.js"></script>--%>
+    <script src="../js/messages.js"></script>
 </head>
 
 <body>

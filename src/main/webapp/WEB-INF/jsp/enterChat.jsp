@@ -17,7 +17,8 @@
 
 <body>
 <div align = 'center'>
-    <form action="/data/userNickName/" method="post">
+    <%--<form action="/data/userNickName" method="get">--%>
+        <form action="user.form" method="get">
         <%
 //            request.getSession().setAttribute("formed",Boolean.valueOf(true));
             User user = (User)request.getAttribute("user");

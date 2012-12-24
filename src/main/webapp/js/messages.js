@@ -4,7 +4,7 @@ $(function () {
 
         var messageID = $("#messageId").val();
 
-        $.get("./data/messages/" + messageID, function (data) {
+        $.get("/data/messages/" + messageID, function (data) {
             console.log("Message processed successfully");
             console.log("Object received: " + JSON.stringify(data));
         });
