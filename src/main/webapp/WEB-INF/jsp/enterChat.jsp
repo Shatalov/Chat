@@ -5,41 +5,36 @@
 
 </head>
 <%@ page import="com.teamdev.students.chat.model.User" %>
+<%@ page import="java.util.List" %>
 
 <body>
-<div align = 'center'>
+<div align='center'>
 
-        <form action="user.form" method="post">
-        <%
-            User user = (User)request.getAttribute("user");
-//            if(user == null){
-//                user = new User(0, "");
-//            }
-//            List<String> col = (List<String>) request.getAttribute("colors");
-//            if(col == null){
-//                System.out.println("***************FTYUYYT: ");
-//            }
-        %>
+    <form action="user.form" method="post">
 
         <h1>Enter chat page</h1>
 
         Enter your nick name without spaces:
-            <br>
-        <input type="text" SIZE=20 name="nickName" value="<%= user.getNickName()%>"/>
-            <br>
+        <br>
+        <input type="text" SIZE=20 name="nickName" value="<%= request.getAttribute("userNick")%>"/>
+        <br>
 
-
-            <select name="colorCombo">
-                <c:forEach items="${colors}" var="color">
-                    <option value="${color}">${color}</option>
-                </c:forEach>
-            </select>
-
+         Select color:
+        <select name="colorSelected">
+            <c:forEach items="${colors}" var="color">
+                <option value="${color}">${color}</option>
+            </c:forEach>
+        </select>
 
 
         <br>
+        <p style="color:red">
+        <%= request.getAttribute("errorMessage")%>    </p>
+        <br>
+
         <INPUT TYPE=submit value="Ok">
     </form>
 </div>
 </body>
 </html>
+

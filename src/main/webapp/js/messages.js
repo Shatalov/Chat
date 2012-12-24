@@ -1,5 +1,5 @@
 $(function () {
-    console.log("Setting up the client-side services..." + Us);
+    console.log("Setting up the client-side services...");
     $("#testMessageBtn").click(function () {
 
         var messageID = $("#messageId").val();
@@ -12,14 +12,14 @@ $(function () {
 
     $("#postMessageBtn").click(function () {
         var messageText = $("#messageText").val();
-        var message = {text: messageText, userId: 666};
+        var message = {text:messageText, userId:666};
         var messageString = JSON.stringify(message);
         $.ajax({
-                type: "POST",
-                url: "/data/messages/",
-                contentType: "application/json; charset=utf-8",
-                data: messageString,
-                success: function () {
+                type:"POST",
+                url:"/data/messages/",
+                contentType:"application/json; charset=utf-8",
+                data:messageString,
+                success:function () {
                     console.log("Message has been successfully posted");
                 }
 

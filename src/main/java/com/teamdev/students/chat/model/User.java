@@ -5,11 +5,14 @@ public class User {
     private long userId;
     private String nickName;
     private long numberOfShownMessages;
-    private String  userColor;
+    private String userColor;
 
-    public User(long userId, String nickName) {
+    public User(long userId, String nickName,
+                long numberOfShownMessages, String userColor) {
         this.userId = userId;
         this.nickName = nickName;
+        this.numberOfShownMessages = numberOfShownMessages;
+        this.userColor = userColor;
     }
 
     public long getUserId() {

@@ -11,14 +11,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 @Controller
 public class MainController {
@@ -52,51 +49,56 @@ public class MainController {
 
     //todo[...]: move to the separate Utility class
     private static Message fromRequest(MessagePostRequest request) {
-        return new Message((long)111, request.getText(), new Date(), request.getUserId());
+        return new Message((long) 111, request.getText(), new Date(), request.getUserId(), false, 0);
     }
 
     private static MessageResponse toReponse(Message message) {
         return new MessageResponse(message.getText(), message.getUserId());
     }
 
-//    @RequestMapping(value = "/userNickName", method = RequestMethod.GET)
+    //    @RequestMapping(value = "/userNickName", method = RequestMethod.GET)
     @RequestMapping(value = "/user.form", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String enterUser(@RequestParam("nickName") String nickname, Model model){
+    public String enterUser(@RequestParam("nickName") String nickname,
+                            @RequestParam("colorSelected") String colorUser,
+                            Model model) {
 
-       User user =  new User(333, "Yar");
-       model.addAttribute("user", user);
-        model.addAttribute("userIDDDD", "dddddddddddd");
+        if(enterUserService.checkUniquenessName(chatContext, nickname)) {
 
-        LOGGER.debug("Get nickname: " + nickname);
+            User user = enterUserService.addNewUser(chatContext, nickname, colorUser);
+            model.addAttribute("userID", user.getUserId());
 
-        System.out.println("***************Get nickname: " + nickname);
+            LOGGER.debug("Get nickname: " + nickname);
 
-        return "WEB-INF/jsp/messages.jsp";
-//         return "messages";
+            return "WEB-INF/jsp/messages.jsp";
+        }
+        else{
+            String errorMessage = "Your nickName isn't uniqueness. Enter the other.";
+
+            model.addAttribute("userNick", nickname);
+            model.addAttribute("errorMessage", errorMessage);
+            model.addAttribute("colors", chatContext.getColorsAvailable());
+
+            LOGGER.debug("isn't uniqueness nickname: " + nickname);
+
+            return "WEB-INF/jsp/enterChat.jsp";
+        }
     }
+
     @RequestMapping(value = "/")
     @ResponseStatus(HttpStatus.OK)
-    public String enterUser( Model model){
+    public String enterUser(Model model) {
 
-        User user =  new User(0, "");
-        List<String> col= new LinkedList<String>();
-        col.add("Black");
-        col.add("Green");
-        col.add("Brown");
+        String userNick = "";
+        String errorMessage = "";
 
-        chatContext.setColorsAvailable(col);
-
-        model.addAttribute("user", user);
+        model.addAttribute("userNick", userNick);
         model.addAttribute("colors", chatContext.getColorsAvailable());
-//        model.addAttribute("colors", chatContext);
+        model.addAttribute("errorMessage", errorMessage);
 
-//        LOGGER.debug("Get nickname: " + nickname);
-//
-//        System.out.println("***************Get nickname: " + nickname);
+        LOGGER.debug("We are in first conroller");
 
         return "WEB-INF/jsp/enterChat.jsp";
-//         return "messages";
     }
 
 }
