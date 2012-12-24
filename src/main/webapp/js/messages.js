@@ -1,5 +1,5 @@
 $(function () {
-    console.log("Setting up the client-side services...");
+    console.log("Setting up the client-side services..." + Us);
     $("#testMessageBtn").click(function () {
 
         var messageID = $("#messageId").val();

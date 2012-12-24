@@ -28,8 +28,14 @@
         <url-pattern>*.form</url-pattern>
     </servlet-mapping>
 
-    <welcome-file-list>
-        <welcome-file>/WEB-INF/jsp/enterChat.jsp</welcome-file>
-    </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
+    <!--<welcome-file-list>-->
+        <!--<welcome-file>/</welcome-file>-->
+    <!--</welcome-file-list>-->
 
 </web-app>

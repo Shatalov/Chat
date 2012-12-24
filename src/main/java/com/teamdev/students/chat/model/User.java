@@ -5,7 +5,7 @@ public class User {
     private long userId;
     private String nickName;
     private long numberOfShownMessages;
-//    private Enum<Color>  col;
+    private Color  userColor;
 
     public User(long userId, String nickName) {
         this.userId = userId;
@@ -32,7 +32,16 @@ public class User {
         return numberOfShownMessages;
     }
 
+    public Color getUserColor() {
+        return userColor;
+    }
+
+    public void setUserColor(Color userColor) {
+        this.userColor = userColor;
+    }
+
     public void setNumberOfShownMessages(long numberOfShownMessages) {
         this.numberOfShownMessages = numberOfShownMessages;
+
     }
 }
