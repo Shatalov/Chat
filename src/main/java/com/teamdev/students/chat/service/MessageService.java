@@ -1,7 +1,6 @@
 package com.teamdev.students.chat.service;
 
 import com.teamdev.students.chat.ChatContext;
-
 import com.teamdev.students.chat.controller.dto.MessagePostRequest;
 import com.teamdev.students.chat.controller.dto.MessageResponse;
 import com.teamdev.students.chat.model.Message;
@@ -19,8 +18,9 @@ public class MessageService {
     /**
      * Finds the message by the ID provided
      *
-     * @param userId ID of the message to search for
-     * @return the message with the given ID or null if no such message exists
+     * @param chatContext, the repository of current messages and user
+     * @param userId ID of the user
+     * @return the message that user haven't seen yet
      */
     public MessageResponse getMessagesForUser(ChatContext chatContext, long userId) {
         LOGGER.debug("Finding the user by ID = " + userId);
@@ -28,45 +28,42 @@ public class MessageService {
         MessageResponse messResp = null;
 
         User user = chatContext.getUserById(userId);
-        if(user !=null)  {
+        if (user != null) {
             long numberOfShownMessages = 0L;
-                numberOfShownMessages =user.getNumberOfShownMessages();
-                long numberOfMessages = chatContext.getNumberOfMessages();
+            numberOfShownMessages = user.getNumberOfShownMessages();
+            long numberOfMessages = chatContext.getNumberOfMessages();
 
-    //        for(long i = numberOfShownMessages; i <= numberOfMessages ;i++) {
-    //
-    //        }
 
-            if(numberOfShownMessages <= numberOfMessages) {
+            if (numberOfShownMessages <= numberOfMessages) {
                 Message mess = chatContext.getMessageById(numberOfShownMessages);
                 user.addNumberOfShownMessages();
-                if(mess != null){
+                if (mess != null) {
 
-                    String colorText = "<font = color:"+user.getUserColor() +">" + mess.getText() + "</font>";
+                    String colorText = "<font = color:" + user.getUserColor() + ">" + mess.getText() + "</font>";
 
-                    if(mess.isToAll()) {
+                    if (mess.isToAll()) {
                         messResp = new MessageResponse(colorText,
                                 mess.isToAll(),
                                 findUserNameById(chatContext, mess.getUserId()), "");
-                    }  else{
+                    } else {
                         messResp = new MessageResponse(colorText,
                                 mess.isToAll(),
                                 findUserNameById(chatContext, mess.getUserId()),
                                 findUserNameById(chatContext, mess.getToUserId()));
                     }
-                 }
+                }
 
-                 return messResp;
+                return messResp;
             }
         }
-        return  null;
+        return null;
     }
 
-    private String findUserNameById(ChatContext chatContext, long userId){
-            User user = chatContext.getUserById(userId);
-         if (user != null)   {
-           return  user.getNickName();
-         }
+    private String findUserNameById(ChatContext chatContext, long userId) {
+        User user = chatContext.getUserById(userId);
+        if (user != null) {
+            return user.getNickName();
+        }
         return null;
     }
 
@@ -79,9 +76,9 @@ public class MessageService {
                 newMessage.getText(),
                 newMessage.isToAll(),
                 newMessage.getToUserId(),
-                numberOfMessages +1,
+                numberOfMessages + 1,
                 new Date(),
-                newMessage.getUserId());
+                newMessage.getUserIdM());
 
         chatContext.addMessage(mess);
 

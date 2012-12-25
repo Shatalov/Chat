@@ -4,7 +4,7 @@ import com.teamdev.students.chat.model.SimpleMessage;
 
 public class MessagePostRequest extends SimpleMessage {
 
-      private  long userId;
+    private long userIdM;
 
     public MessagePostRequest() {
         super();
@@ -12,14 +12,14 @@ public class MessagePostRequest extends SimpleMessage {
 
     public MessagePostRequest(String text, boolean toAll, long toUserId, long userId) {
         super(text, toAll, toUserId);
-        this.userId = userId;
+        this.userIdM = userId;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getUserIdM() {
+        return userIdM;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUserIdM(long userId) {
+        this.userIdM = userId;
     }
 }

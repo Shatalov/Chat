@@ -15,13 +15,11 @@ public class ChatContext {
     private long numberOfUsers;
     private List<User> users = new LinkedList<User>();
     private List<Message> messages = new LinkedList<Message>();
-//    private List<String> colorsAvailable = new LinkedList<String>();
-//    private Map<Long,User >= new LinkedHashMap<Long,User>();
 
-    public  ChatContext(){
+    public ChatContext() {
 
-          addUser(new User(1, "Yar",1, Color.black));
-        addUser(new User(2, "Gello",1, Color.black));
+        addUser(new User(1, "Yar", 1, Color.black));
+        addUser(new User(2, "Gello", 1, Color.black));
         addUser(new User(3, "Pele", 1, Color.black));
     }
 
@@ -37,7 +35,7 @@ public class ChatContext {
 
     public User getUserById(long id) {
         for (User us : users) {
-            if (us.getUserId() == id)
+            if (us.getIdUser() == id)
                 return us;
         }
         return null;

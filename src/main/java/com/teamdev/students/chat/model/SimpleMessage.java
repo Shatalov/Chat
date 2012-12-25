@@ -2,11 +2,12 @@ package com.teamdev.students.chat.model;
 
 public class SimpleMessage {
 
-    private  String text;
-    private  boolean toAll;
-    private  long toUserId;
+    private String text;
+    private boolean toAll;
+    private long toUserId;
 
-    public SimpleMessage(){}
+    public SimpleMessage() {
+    }
 
     public SimpleMessage(String text, boolean toAll, long toUserId) {
         this.text = text;

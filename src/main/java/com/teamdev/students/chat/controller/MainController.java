@@ -1,14 +1,13 @@
 package com.teamdev.students.chat.controller;
 
 import com.teamdev.students.chat.ChatContext;
-
 import com.teamdev.students.chat.controller.dto.MessagePostRequest;
 import com.teamdev.students.chat.controller.dto.MessageResponse;
 import com.teamdev.students.chat.controller.dto.UserResponse;
 import com.teamdev.students.chat.model.Color;
 import com.teamdev.students.chat.model.User;
-import com.teamdev.students.chat.service.UserService;
 import com.teamdev.students.chat.service.MessageService;
+import com.teamdev.students.chat.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +35,7 @@ public class MainController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public MessageResponse getMessage(@PathVariable("userId") long userId) {
-        if(userId != 0)  {
+        if (userId != 0) {
             LOGGER.debug("Obtaining message for user with ID: " + userId);
             MessageResponse messageResp = messageService.getMessagesForUser(chatContext, userId);
 
@@ -51,7 +50,6 @@ public class MainController {
     public void postMessage(@RequestBody MessagePostRequest messagePost) {
         LOGGER.debug("Got post message request: " + messagePost);
 
-        System.out.println("Ysyayayafdgg" + messagePost);
         messageService.post(chatContext, messagePost);
 
     }
@@ -60,7 +58,7 @@ public class MainController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<UserResponse> getUsers(@PathVariable("userId") long userId) {
-        if(userId != 0)  {
+        if (userId != 0) {
             LOGGER.debug("Getting users for user with ID: " + userId);
 
             List<UserResponse> listUsersResp = userService.getUsersExceptOne(chatContext, userId);
@@ -77,24 +75,20 @@ public class MainController {
                             @RequestParam("colorSelected") Color colorUser,
                             Model model) {
 
-        if(userService.checkUniquenessName(chatContext, nickname)) {
-
-            System.out.println(">>>>>>>>Color " + colorUser);
-            System.out.println("*************************Get nickname:" + nickname);
+        if (userService.checkUniquenessName(chatContext, nickname)) {
 
             User user = userService.addNewUser(chatContext, nickname, colorUser);
-            model.addAttribute("userID", user.getUserId());
+            model.addAttribute("userID", user.getIdUser());
 
             LOGGER.debug("Get nickname: " + nickname);
 
             return "WEB-INF/jsp/messages.jsp";
-        }
-        else{
+        } else {
             String errorMessage = "Your nickName isn't uniqueness. Enter the other.";
 
             model.addAttribute("userNick", nickname);
             model.addAttribute("errorMessage", errorMessage);
-//            model.addAttribute("colors", chatContext.getColorsAvailable());
+
             model.addAttribute("colors", Color.values());
 
             LOGGER.debug("isn't uniqueness nickname: " + nickname);

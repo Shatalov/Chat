@@ -1,6 +1,3 @@
-<%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>--%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-
 <html>
 <head>
     <script src="http://code.jquery.com/jquery.js"></script>
@@ -12,36 +9,35 @@
 </head>
 
 <body>
- <div align='center'>
+<div align='center'>
     <h1>Chat</h1>
 
     <script language="javascript">
-        var UserID = "<%= request.getAttribute("userID") %>";
+        var UserIDT = "<%= request.getAttribute("userID") %>";
     </script>
 
-     <TEXTAREA id="messageTextArea" name="TextArea" ROWS=30 COLS=70></TEXTAREA>
-
-    <%--<input type="text" id="messageId"/>--%>
-    <%--<button id="testMessageBtn">Find message</button>--%>
+    <TEXTAREA id="messageTextArea" name="TextArea" ROWS=30 COLS=70></TEXTAREA>
 
      <br>
-     Select recipient
+    Select recipient
+    <br>
+    <input type="radio" name="IdRadioGroup" value="Default" id="IdDefault" checked/>To everybody
+    <input type='radio' name='IdRadioGroup' value="Users" id="IdUsers"/> To receiver
 
-     <input type="radio" name="IdRadioGroup" value="Default" id="IdDefault" checked />To everybody
-     <input type='radio' name='IdRadioGroup' value="Users"  id="IdUsers"/> To receiver
 
+    <select id="user_select" name="user_select">
+        <%--<option value= 1 >Myself</option>--%>
+    </select>
 
-     <select id="user_select" name="user_select"/>
-
-     <br>
-     <br>
-     <br>
-     Enter you message
+    <br>
+    <br>
+    <br>
+    Enter you message
     <input type="text" size=60 id="messageText"/>
-     <br>
+    <br>
     <button id="postMessageBtn">Post</button>
-      <br>
-   </div>
+    <br>
+</div>
 </body>
 </html>
 
@@ -49,55 +45,52 @@
 <script language="javascript">
     $(function () {
         console.log("Setting up the client-side services...");
-//        $("#testMessageBtn").click(function () {
 
-//            var messageID = $("#messageId").val();
-        setInterval(onTimeOutFunction, 5000);
+        setInterval(onTimeOutFunction, 1000);
 
-        function onTimeOutFunction(){
+        function onTimeOutFunction() {
             $.getJSON(
-            "/data/messages/" + UserID,
-               function (data) {
-                   if (data == null) {
-                   } else {
-                       console.log("Message processed successfully");
-                       console.log("Object received: " + JSON.stringify(data));
+                    "/data/messages/" + UserIDT,
+                    function (data) {
+                        if (data == null) {
+                        } else {
+                            console.log("Message processed successfully");
+                            console.log("Object received: " + JSON.stringify(data));
 
-                       var textOut = data.userNickPostedMessage + " : ";
+                            var textOut = data.userNickPostedMessage + " : ";
 
-                       if (data.toAllResp == false) {
-                           textOut += data.toUserNick + " : ";
-                       }
-                       textOut += data.textResp;
+                            if (data.toAllResp == false) {
+                                textOut += data.toUserNick + " : ";
+                            }
+                            textOut += data.textResp;
 
-                      var resText= $('#messageTextArea').val() + textOut + "\n";
+                            var resText = $('#messageTextArea').val() + textOut + "\n";
 
-                       $('#messageTextArea').html(resText);
+                            $('#messageTextArea').html(resText);
 
-                   }
-            });
+                        }
+                    });
         }
-        var NameSpaceName = function()
-        {
+
+        var NameSpaceName = function () {
 
             $("#postMessageBtn").click(function () {
                 var messageText = $("#messageText").val();
                 var allVal = 'toAll';
                 var usVal = "userId";
 
-                if( $("#IdDefault").is(":checked")) {
-                  console.log("Sending to all");
-                    var message = {text:messageText, toAll:true, toUserId:0,  userId:UserID};
-                }else{
+                if ($("#IdDefault").is(":checked")) {
+                    console.log("Sending to all");
+                    var message = {text:messageText, toAll:true, toUserId:0, userIdM:UserIDT};
+                } else {
 
                     var toUserId = $("#user_select option:selected").val();
-                    var message = {text:messageText, toAll:false, toUserId:toUserId,  userId:UserID};
+                    var message = {text:messageText, toAll:false, toUserId:toUserId, userIdM:UserIDT};
                 }
-    //            var message = {text:messageText, userId:UserID};
+
                 var messageString = JSON.stringify(message);
 
-    //            (String text, boolean toAll, long toUserId, long userId)
-                $.ajax({
+                 $.ajax({
                             type:"POST",
                             url:"/data/messages/",
                             contentType:"application/json; charset=utf-8",
@@ -107,63 +100,40 @@
                             }
 
                         }
-                        );
-                 });
-           }();
+                );
+            });
+        }();
 
-        $("#IdUsers").change(function setInvisibleSelect() {
 
-            if( $("#IdDefault").is(":checked")) {
-//                $("#user_select").attr("disabled","disabled");
-                $("#user_select").disabled = true;
-            }
-        });
 
         $("#IdUsers").change(function getUsers() {
-            if( $("#IdUsers").is(":checked")) {
-                $("#user_select").disabled = false;
-//                $("#user_select").attr("","");
-
-                $.getJSON(
-                    "/data/messages/users/"+ UserID,
-                    function (usersData) {
-                        if (usersData == null) {
-                        } else {
-                            console.log("Users received: "+ JSON.stringify(usersData));
-                            console.log("One User: " + usersData[0].userId + " "+   usersData[0].nickName);
-//                          (long userId, String nickName)
-
-//                           // var data = JSON().parse(usersData);
+            if ($("#IdUsers").is(":checked")) {
 //
-//                            $.each(data, function(key, value) {
-//                                $('#user_select').append($("", {
-//                                    value: key,
-//                                    text: value
-//                                }));
-//                            });
+                $.getJSON(
+                        "/data/messages/users/" + UserIDT,
+                        function (usersData) {
+                            if (usersData == null) {
+                            } else {
+                                console.log("Users received: " + JSON.stringify(usersData));
+                                console.log("One User: " + usersData[0].idUser + " " + usersData[0].nickName);
 
-//                            var new_options = '';
-//                            $.each(usersData, function(key, value) {
-//                                new_options += '' + value + '';
-//                            });
-//                            $('#user_select').html(new_options);
+                                var select = $('#user_select');
+                                if (select.prop) {
+                                    var options = select.prop('options');
+                                }
+                                else {
+                                    var options = select.attr('options');
+                                }
+                                $.each(usersData, function (i) {
+                                    options[options.length] = new Option(usersData[i].nickName, usersData[i].idUser);
+                                });
 
-                            var select = $('#user_select');
-                               if(select.prop) {
-                                var options = select.prop('options');
                             }
-                        else {
-                                var options = select.attr('options');
-                            }
-                            $.each(usersData, function(val, text) {
-                                options[options.length] = new Option(text, val);
-                            });
-                        }
-                    });
+                        });
             }
-        } );
+        });
 
 
     });
 
- </script>
+</script>

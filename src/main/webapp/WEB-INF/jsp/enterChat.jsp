@@ -4,8 +4,6 @@
 <html>
 
 </head>
-<%@ page import="com.teamdev.students.chat.model.User" %>
-<%@ page import="java.util.List" %>
 
 <body>
 <div align='center'>
@@ -19,7 +17,7 @@
         <input type="text" SIZE=20 name="nickName" value="<%= request.getAttribute("userNick")%>"/>
         <br>
 
-         Select color:
+        Select color:
         <select name="colorSelected">
             <c:forEach items="${colors}" var="color">
                 <option value="${color}">${color}</option>
@@ -28,8 +26,10 @@
 
 
         <br>
-        <p style= color:red>
-        <%= request.getAttribute("errorMessage")%>    </p>
+
+        <p style=color:red>
+            <%= request.getAttribute("errorMessage")%>
+        </p>
         <br>
 
         <INPUT TYPE=submit value="Ok">

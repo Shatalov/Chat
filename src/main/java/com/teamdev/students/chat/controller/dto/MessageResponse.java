@@ -1,15 +1,14 @@
 package com.teamdev.students.chat.controller.dto;
 
-import com.teamdev.students.chat.model.SimpleMessage;
-
 public class MessageResponse {
 
-    private  String textResp;
-    private  boolean toAllResp;
+    private String textResp;
+    private boolean toAllResp;
     private String userNickPostedMessage;
-    private  String toUserNick;
+    private String toUserNick;
 
-    public MessageResponse(){}
+    public MessageResponse() {
+    }
 
     public MessageResponse(String textResp, boolean toAllResp, String userNickPostedMessage, String toUserNick) {
         this.textResp = textResp;

@@ -3,11 +3,12 @@ package com.teamdev.students.chat.model;
 import java.util.Date;
 
 public class Message extends SimpleMessage {
-    private  long messageId;
-    private  Date postedAt;
-    private  long userId;
+    private long messageId;
+    private Date postedAt;
+    private long userId;
 
-    public Message(){}
+    public Message() {
+    }
 
     public Message(String text, boolean toAll, long toUserId, long messageId, Date postedAt, long userId) {
         super(text, toAll, toUserId);

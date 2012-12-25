@@ -1,22 +1,23 @@
 package com.teamdev.students.chat.controller.dto;
 
 public class UserResponse {
-    private long userId;
+    private long idUser;
     private String nickName;
 
-    public UserResponse(){}
+    public UserResponse() {
+    }
 
     public UserResponse(long userId, String nickName) {
-        this.userId = userId;
+        this.idUser = userId;
         this.nickName = nickName;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getIdUser() {
+        return idUser;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setIdUser(long userId) {
+        this.idUser = userId;
     }
 
     public String getNickName() {
