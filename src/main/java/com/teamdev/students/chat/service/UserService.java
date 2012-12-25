@@ -1,15 +1,17 @@
 package com.teamdev.students.chat.service;
 
 import com.teamdev.students.chat.ChatContext;
+import com.teamdev.students.chat.controller.dto.UserResponse;
 import com.teamdev.students.chat.model.Color;
 import com.teamdev.students.chat.model.User;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class EnterUserService {
+public class UserService {
 
 //    private static final Logger LOGGER = Logger.getLogger(EnterUserService.class);
 
@@ -26,6 +28,18 @@ public class EnterUserService {
                 return false;
         }
         return true;
+    }
+
+    public List<UserResponse> getUsersExceptOne(ChatContext chatContext, long userId){
+        List<UserResponse> listUsersResp = new LinkedList<UserResponse>();
+
+        for(User us : chatContext.getUsers()){
+            if(us.getUserId() != userId ) {
+                listUsersResp.add(
+                        new UserResponse(us.getUserId(), us.getNickName()));
+            }
+        }
+        return listUsersResp;
     }
 
     public User addNewUser(ChatContext chatContext, String nickname, Color colorUser){

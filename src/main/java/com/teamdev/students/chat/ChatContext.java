@@ -20,9 +20,9 @@ public class ChatContext {
 
     public  ChatContext(){
 
-          users.add(new User(1, "Yar",1, Color.black));
-        users.add(new User(2, "Gello",1, Color.black));
-        users.add(new User(3, "Pele", 1, Color.black));
+          addUser(new User(1, "Yar",1, Color.black));
+        addUser(new User(2, "Gello",1, Color.black));
+        addUser(new User(3, "Pele", 1, Color.black));
     }
 
     public void addUser(User user) {

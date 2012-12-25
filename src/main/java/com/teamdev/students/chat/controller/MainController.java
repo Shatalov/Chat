@@ -4,11 +4,10 @@ import com.teamdev.students.chat.ChatContext;
 
 import com.teamdev.students.chat.controller.dto.MessagePostRequest;
 import com.teamdev.students.chat.controller.dto.MessageResponse;
-import com.teamdev.students.chat.model.SimpleMessage;
+import com.teamdev.students.chat.controller.dto.UserResponse;
 import com.teamdev.students.chat.model.Color;
-import com.teamdev.students.chat.model.Message;
 import com.teamdev.students.chat.model.User;
-import com.teamdev.students.chat.service.EnterUserService;
+import com.teamdev.students.chat.service.UserService;
 import com.teamdev.students.chat.service.MessageService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.Date;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -28,7 +27,7 @@ public class MainController {
     @Inject
     private MessageService messageService;
     @Inject
-    private EnterUserService enterUserService;
+    private UserService userService;
     @Autowired
     private ChatContext chatContext;
 
@@ -57,25 +56,33 @@ public class MainController {
 
     }
 
-//    //todo[...]: move to the separate Utility class
-//    private static Message fromRequest(MessagePostRequest request) {
-//        return new Message((long) 111, request.getText(), new Date(), request.getUserId(), false, 0);
-//    }
-//
-//    private static MessageResponse toReponse(Message message) {
-//        return new MessageResponse(message.getText(), message.getUserId());
-//    }
+    @RequestMapping(value = "/messages/users/{userId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<UserResponse> getUsers(@PathVariable("userId") long userId) {
+        if(userId != 0)  {
+            LOGGER.debug("Getting users for user with ID: " + userId);
 
-    //    @RequestMapping(value = "/userNickName", method = RequestMethod.GET)
+            List<UserResponse> listUsersResp = userService.getUsersExceptOne(chatContext, userId);
+
+            return listUsersResp;
+        }
+        return null;
+    }
+
+
     @RequestMapping(value = "/user.form", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public String enterUser(@RequestParam("nickName") String nickname,
                             @RequestParam("colorSelected") Color colorUser,
                             Model model) {
 
-        if(enterUserService.checkUniquenessName(chatContext, nickname)) {
+        if(userService.checkUniquenessName(chatContext, nickname)) {
 
-            User user = enterUserService.addNewUser(chatContext, nickname, colorUser);
+            System.out.println(">>>>>>>>Color " + colorUser);
+            System.out.println("*************************Get nickname:" + nickname);
+
+            User user = userService.addNewUser(chatContext, nickname, colorUser);
             model.addAttribute("userID", user.getUserId());
 
             LOGGER.debug("Get nickname: " + nickname);

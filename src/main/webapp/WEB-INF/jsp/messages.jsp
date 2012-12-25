@@ -23,6 +23,18 @@
 
     <%--<input type="text" id="messageId"/>--%>
     <%--<button id="testMessageBtn">Find message</button>--%>
+
+     <br>
+     Select recipient
+
+     <input type="radio" name="IdRadioGroup" value="Default" id="IdDefault" checked />To everybody
+     <input type='radio' name='IdRadioGroup' value="Users"  id="IdUsers"/> To receiver
+
+
+     <select id="user_select" name="user_select"/>
+
+     <br>
+     <br>
      <br>
      Enter you message
     <input type="text" size=60 id="messageText"/>
@@ -40,7 +52,7 @@
 //        $("#testMessageBtn").click(function () {
 
 //            var messageID = $("#messageId").val();
-        setInterval(onTimeOutFunction, 10000);
+        setInterval(onTimeOutFunction, 5000);
 
         function onTimeOutFunction(){
             $.getJSON(
@@ -58,7 +70,9 @@
                        }
                        textOut += data.textResp;
 
-                       $('#messageTextArea').val($('#messageTextArea').val() + textOut );
+                      var resText= $('#messageTextArea').val() + textOut + "\n";
+
+                       $('#messageTextArea').html(resText);
 
                    }
             });
@@ -70,7 +84,15 @@
                 var messageText = $("#messageText").val();
                 var allVal = 'toAll';
                 var usVal = "userId";
-                var message = {text:messageText, toAll:true, toUserId:333,  userId:UserID};
+
+                if( $("#IdDefault").is(":checked")) {
+                  console.log("Sending to all");
+                    var message = {text:messageText, toAll:true, toUserId:0,  userId:UserID};
+                }else{
+
+                    var toUserId = $("#user_select option:selected").val();
+                    var message = {text:messageText, toAll:false, toUserId:toUserId,  userId:UserID};
+                }
     //            var message = {text:messageText, userId:UserID};
                 var messageString = JSON.stringify(message);
 
@@ -89,5 +111,59 @@
                  });
            }();
 
+        $("#IdUsers").change(function setInvisibleSelect() {
+
+            if( $("#IdDefault").is(":checked")) {
+//                $("#user_select").attr("disabled","disabled");
+                $("#user_select").disabled = true;
+            }
+        });
+
+        $("#IdUsers").change(function getUsers() {
+            if( $("#IdUsers").is(":checked")) {
+                $("#user_select").disabled = false;
+//                $("#user_select").attr("","");
+
+                $.getJSON(
+                    "/data/messages/users/"+ UserID,
+                    function (usersData) {
+                        if (usersData == null) {
+                        } else {
+                            console.log("Users received: "+ JSON.stringify(usersData));
+                            console.log("One User: " + usersData[0].userId + " "+   usersData[0].nickName);
+//                          (long userId, String nickName)
+
+//                           // var data = JSON().parse(usersData);
+//
+//                            $.each(data, function(key, value) {
+//                                $('#user_select').append($("", {
+//                                    value: key,
+//                                    text: value
+//                                }));
+//                            });
+
+//                            var new_options = '';
+//                            $.each(usersData, function(key, value) {
+//                                new_options += '' + value + '';
+//                            });
+//                            $('#user_select').html(new_options);
+
+                            var select = $('#user_select');
+                               if(select.prop) {
+                                var options = select.prop('options');
+                            }
+                        else {
+                                var options = select.attr('options');
+                            }
+                            $.each(usersData, function(val, text) {
+                                options[options.length] = new Option(text, val);
+                            });
+                        }
+                    });
+            }
+        } );
+
+
     });
-</script>
+
+ </script>

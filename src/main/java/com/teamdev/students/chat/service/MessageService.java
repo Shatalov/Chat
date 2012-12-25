@@ -28,38 +28,46 @@ public class MessageService {
         MessageResponse messResp = null;
 
         User user = chatContext.getUserById(userId);
-        long numberOfShownMessages = 0L;
-        numberOfShownMessages =user.getNumberOfShownMessages();
-        long numberOfMessages = chatContext.getNumberOfMessages();
+        if(user !=null)  {
+            long numberOfShownMessages = 0L;
+                numberOfShownMessages =user.getNumberOfShownMessages();
+                long numberOfMessages = chatContext.getNumberOfMessages();
 
-//        for(long i = numberOfShownMessages; i <= numberOfMessages ;i++) {
-//
-//        }
+    //        for(long i = numberOfShownMessages; i <= numberOfMessages ;i++) {
+    //
+    //        }
 
-        if(numberOfShownMessages <= numberOfMessages) {
-            Message mess = chatContext.getMessageById(numberOfShownMessages);
-            user.addNumberOfShownMessages();
+            if(numberOfShownMessages <= numberOfMessages) {
+                Message mess = chatContext.getMessageById(numberOfShownMessages);
+                user.addNumberOfShownMessages();
+                if(mess != null){
 
-            String colorText = "<div style= color:"+user.getUserColor() +">" + mess.getText() + "</div>";
+                    String colorText = "<font = color:"+user.getUserColor() +">" + mess.getText() + "</font>";
 
-            if(mess.isToAll()) {
-                messResp = new MessageResponse(colorText,
-                        mess.isToAll(),
-                        findUserNameById(chatContext, mess.getUserId()), "");
-            }  else{
-                messResp = new MessageResponse(colorText,
-                        mess.isToAll(),
-                        findUserNameById(chatContext, mess.getUserId()),
-                        findUserNameById(chatContext, mess.getToUserId()));
+                    if(mess.isToAll()) {
+                        messResp = new MessageResponse(colorText,
+                                mess.isToAll(),
+                                findUserNameById(chatContext, mess.getUserId()), "");
+                    }  else{
+                        messResp = new MessageResponse(colorText,
+                                mess.isToAll(),
+                                findUserNameById(chatContext, mess.getUserId()),
+                                findUserNameById(chatContext, mess.getToUserId()));
+                    }
+                 }
+
+                 return messResp;
             }
-         }
-
-        return messResp;
+        }
+        return  null;
     }
 
     private String findUserNameById(ChatContext chatContext, long userId){
             User user = chatContext.getUserById(userId);
+         if (user != null)   {
            return  user.getNickName();
+         }
+        return null;
     }
 
     public void post(ChatContext chatContext, MessagePostRequest newMessage) {
