@@ -39,7 +39,7 @@ public class MessageService {
                 user.addNumberOfShownMessages();
                 if (mess != null) {
 
-                    String colorText = "<font = color:" + user.getUserColor() + ">" + mess.getText() + "</font>";
+                    String colorText = "<span style=\"color:" + user.getUserColor() + "\"> "   + mess.getText() + "</span>";
 
                     if (mess.isToAll()) {
                         messResp = new MessageResponse(colorText,

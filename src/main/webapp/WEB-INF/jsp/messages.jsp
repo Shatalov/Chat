@@ -16,7 +16,9 @@
         var UserIDT = "<%= request.getAttribute("userID") %>";
     </script>
 
-    <TEXTAREA id="messageTextArea" name="TextArea" ROWS=30 COLS=70></TEXTAREA>
+      <div id ="mainDivId" >
+        <br><br><br>
+     </div>
 
      <br>
     Select recipient
@@ -26,7 +28,6 @@
 
 
     <select id="user_select" name="user_select">
-        <%--<option value= 1 >Myself</option>--%>
     </select>
 
     <br>
@@ -64,9 +65,10 @@
                             }
                             textOut += data.textResp;
 
-                            var resText = $('#messageTextArea').val() + textOut + "\n";
-
-                            $('#messageTextArea').html(resText);
+                            var theDiv = document.getElementById("mainDivId");
+                            var newNode = document.createElement('div');
+                            newNode.innerHTML = textOut;
+                            theDiv.appendChild( newNode )
 
                         }
                     });
