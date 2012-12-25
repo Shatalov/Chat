@@ -39,7 +39,8 @@ public class MainController {
             LOGGER.debug("Obtaining message for user with ID: " + userId);
             MessageResponse messageResp = messageService.getMessagesForUser(chatContext, userId);
 
-            LOGGER.debug("**********Message found: " + messageResp);
+            LOGGER.debug("Message found: " + messageResp);
+
             return messageResp;
         }
         return null;
