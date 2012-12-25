@@ -1,6 +1,7 @@
 package com.teamdev.students.chat.service;
 
 import com.teamdev.students.chat.ChatContext;
+import com.teamdev.students.chat.model.Color;
 import com.teamdev.students.chat.model.User;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class EnterUserService {
         return true;
     }
 
-    public User addNewUser(ChatContext chatContext, String nickname, String colorUser){
+    public User addNewUser(ChatContext chatContext, String nickname, Color colorUser){
 
         long numberOfUsers = chatContext.getNumberOfUsers();
         User user = new User(numberOfUsers +1, nickname,

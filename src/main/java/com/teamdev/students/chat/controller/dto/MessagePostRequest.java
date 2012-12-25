@@ -1,16 +1,18 @@
 package com.teamdev.students.chat.controller.dto;
 
+import com.teamdev.students.chat.model.SimpleMessage;
 
-public class MessagePostRequest {
-    private String text;
-    private long userId;
+public class MessagePostRequest extends SimpleMessage {
 
-    public String getText() {
-        return text;
+      private  long userId;
+
+    public MessagePostRequest() {
+        super();
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public MessagePostRequest(String text, boolean toAll, long toUserId, long userId) {
+        super(text, toAll, toUserId);
+        this.userId = userId;
     }
 
     public long getUserId() {
@@ -19,13 +21,5 @@ public class MessagePostRequest {
 
     public void setUserId(long userId) {
         this.userId = userId;
-    }
-
-    @Override
-    public String toString() {
-        return "MessagePostRequest{" +
-                "text='" + text + '\'' +
-                ", userId=" + userId +
-                '}';
     }
 }

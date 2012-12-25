@@ -28,7 +28,7 @@
 
 
         <br>
-        <p style="color:red">
+        <p style= color:red>
         <%= request.getAttribute("errorMessage")%>    </p>
         <br>
 
